@@ -1,0 +1,41 @@
+/* Calculator Style */
+
+.main-container{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: bisque;
+    display: flex;
+}
+
+.calculator-container{
+    background-color: aliceblue;
+    flex: 1;
+    margin-left: 32%;
+    margin-right: 32%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    display: flex;
+    flex-direction: column;
+}  
+
+.screen{
+    background-color: black;
+    flex: 0, 1;
+    height: 30%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 5%;
+}
+
+.keyboard{
+    background-color: white;
+    flex: 1;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    display: flex;
+}
