@@ -25,3 +25,29 @@ const operate = function(operator, a, b) {
         return divide(a, b);
     }
 }
+
+const display = document.querySelector('.screen');
+const buttonsOnScreen = document.querySelectorAll('.button');
+
+let operator = "";
+
+buttonsOnScreen.forEach((button) => {
+    button.addEventListener('click', () => {
+        if (button.textContent !== "CLEAR" && button.textContent !== "=") {
+            if (button.textContent === "/" || button.textContent === "*" || button.textContent === "+" || button.textContent === "-") {
+                operator = button.textContent;
+                button.classList.add('operator-style');
+            } else {
+                display.textContent += button.textContent;
+            }
+        }
+        if (button.textContent === 'CLEAR') {
+            display.textContent = "";
+        }
+        if (button.textContent === '=') {
+            operate(operator, a, b);
+        }
+    } )
+});
+
+
