@@ -30,6 +30,10 @@ const display = document.querySelector('.screen');
 const buttonsOnScreen = document.querySelectorAll('.button');
 
 let operator = "";
+let a = "";
+let b = "";
+
+let operatorButton = "";
 
 buttonsOnScreen.forEach((button) => {
     button.addEventListener('click', () => {
@@ -37,15 +41,27 @@ buttonsOnScreen.forEach((button) => {
             if (button.textContent === "/" || button.textContent === "*" || button.textContent === "+" || button.textContent === "-") {
                 operator = button.textContent;
                 button.classList.add('operator-style');
+                operatorButton = button;
+                a = +display.textContent;
             } else {
-                display.textContent += button.textContent;
+                if (display.textContent !== "" && operator !== "") {
+                    b += button.textContent;
+                    display.textContent = b;
+                    operatorButton.classList.remove('operator-style');
+                } else {
+                    display.textContent += button.textContent;
+                }
             }
         }
         if (button.textContent === 'CLEAR') {
             display.textContent = "";
+            operator = "";
+            a = "";
+            b = "";
         }
         if (button.textContent === '=') {
-            operate(operator, a, b);
+            b = +display.textContent;
+            display.textContent = operate(operator, a, b);
         }
     } )
 });
