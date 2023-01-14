@@ -94,11 +94,14 @@ buttonsOnScreen.forEach((button) => {
         }
         
         if (button.textContent === '=') {
-            b = +display.textContent;
-            result = operate(operator, a, b);
-            display.textContent = result;
-            a = "";
-            b = "";
+            if (b === "") {
+            } else {
+                b = +display.textContent;
+                result = operate(operator, a, b);
+                display.textContent = result;
+                a = "";
+                b = "";
+            }
         }
     } )
 });
