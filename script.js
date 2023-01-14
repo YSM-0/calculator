@@ -11,7 +11,7 @@ const multiply = function(a, b) {
 }
 
 const divide = function(a, b) {
-    return a / b;
+    return a / b
 }
 
 const operate = function(operator, a, b) {
@@ -28,10 +28,10 @@ const operate = function(operator, a, b) {
 
 const clear = function() {
     display.textContent = "";
-            operator = "";
-            a = "";
-            b = "";
-            result = "";
+    operator = "";
+    a = "";
+    b = "";
+    operatorButton.classList.remove('operator-style');
 }
 
 const display = document.querySelector('.screen');
@@ -48,17 +48,25 @@ buttonsOnScreen.forEach((button) => {
     button.addEventListener('click', () => {
         if (button.textContent !== "CLEAR" && button.textContent !== "=") {
             if (button.textContent === "/" || button.textContent === "*" || button.textContent === "+" || button.textContent === "-") {
-                operator = button.textContent;
-                button.classList.add('operator-style');
-                operatorButton = button;
-                if (a !== "" && b !== "") {
-                    a = operate(operator, a, b);
-                    b = "";
+                if (display.textContent === "" && button.textContent === "-"){
+                    display.textContent += button.textContent;
                 } else {
-                    if (a !== "") {
-                        b = +display.textContent;
+                    if (a !== "" && b !== "") {
+                        a = operate(operator, a, b);
+                        operator = button.textContent;
+                        button.classList.add('operator-style');
+                        operatorButton = button;
+                        b = display.textContent;
+                        b = "";
                     } else {
-                        a = +display.textContent;
+                        operator = button.textContent;
+                        button.classList.add('operator-style');
+                        operatorButton = button;
+                        if (a !== "") {
+                            b = +display.textContent;
+                        } else {
+                            a = +display.textContent;
+                        }
                     }
                 }
             } else {
@@ -70,8 +78,12 @@ buttonsOnScreen.forEach((button) => {
                     if (a !== "") {
                         display.textContent += button.textContent;
                     } else {
-                        display.textContent = "";
-                        display.textContent += button.textContent;
+                        if (display.textContent !== "" && result !== "") {
+                            display.textContent = button.textContent;
+                            result = "";
+                        } else {
+                            display.textContent += button.textContent;
+                        }
                     }
                 }
             }
@@ -86,7 +98,7 @@ buttonsOnScreen.forEach((button) => {
             result = operate(operator, a, b);
             display.textContent = result;
             a = "";
-            b = ""
+            b = "";
         }
     } )
 });
