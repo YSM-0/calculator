@@ -11,7 +11,11 @@ const multiply = function(a, b) {
 }
 
 const divide = function(a, b) {
-    return a / b
+    if (a === 0) {
+        return 'ERROR';
+    } else {
+        return a / b;
+    }
 }
 
 const operate = function(operator, a, b) {
@@ -98,7 +102,11 @@ buttonsOnScreen.forEach((button) => {
             } else {
                 b = +display.textContent;
                 result = operate(operator, a, b);
-                display.textContent = result;
+                if (Number.isInteger(result) === true) {
+                    display.textContent = result;
+                } else {
+                        display.textContent = parseFloat(result.toFixed(2));
+                }
                 a = "";
                 b = "";
             }
