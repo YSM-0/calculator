@@ -38,6 +38,14 @@ const clear = function() {
     operatorButton.classList.remove('operator-style');
 }
 
+const checkFloat = function (key) {
+    if ( key.textContent === '.' && display.textContent.slice('0', display.textContent.length -1).includes('.')) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 const display = document.querySelector('.screen');
 const buttonsOnScreen = document.querySelectorAll('.button');
 
@@ -45,6 +53,7 @@ let operator = "";
 let a = "";
 let b = "";
 let result = "";
+let floatCount = 0;
 
 let operatorButton = "";
 
@@ -75,18 +84,34 @@ buttonsOnScreen.forEach((button) => {
                 }
             } else {
                 if (a !== "" && operator !== "") {
-                    b += button.textContent;
-                    display.textContent = b;
-                    operatorButton.classList.remove('operator-style');
+                    if (checkFloat(button) === true){
+
+                    } else {
+                        b += button.textContent;
+                        display.textContent = b;
+                        operatorButton.classList.remove('operator-style');
+                    }
                 } else {
                     if (a !== "") {
-                        display.textContent += button.textContent;
-                    } else {
-                        if (display.textContent !== "" && result !== "") {
-                            display.textContent = button.textContent;
-                            result = "";
+                        if (checkFloat(button) === true) {
+                            
                         } else {
                             display.textContent += button.textContent;
+                        }
+                    } else {
+                        if (display.textContent !== "" && result !== "") {
+                            if (checkFloat(button) === true) {
+
+                            } else {
+                                display.textContent = button.textContent;
+                                result = "";
+                            }
+                        } else {
+                            if (checkFloat(button) === true) {
+
+                            } else {
+                                display.textContent += button.textContent;
+                            }
                         }
                     }
                 }
@@ -111,6 +136,13 @@ buttonsOnScreen.forEach((button) => {
                 b = "";
             }
         }
+
+        // if (display.textContent.includes('.', '.') && display.textContent.slice(-1) !== '.') {
+        //     console.log('yes')
+        //     if (display.textContent.slice(-1) === '.') {
+        //         alert('aaa');
+        //     }
+        // }
     } )
 });
 
