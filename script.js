@@ -39,7 +39,7 @@ const clear = function() {
 }
 
 const checkFloat = function (key) {
-    if ( key.textContent === '.' && display.textContent.slice('0', display.textContent.length -1).includes('.')) {
+    if ( key.textContent === '.' && display.textContent.slice('0', display.textContent.length).includes('.')) {
         return true;
     } else {
         return false;
@@ -57,7 +57,16 @@ let floatCount = 0;
 
 let operatorButton = "";
 
-buttonsOnScreen.forEach((button) => {
+window.addEventListener('keydown', (e) => {
+    buttonsOnScreen.forEach((button) => {
+        if (e.keyCode == button.getAttribute('data-key')) {
+            button.click()
+        }
+    })
+})
+
+buttonsOnScreen.forEach((button) => {  
+
     button.addEventListener('click', () => {
         if (button.textContent !== "CLEAR" && button.textContent !== "=") {
             if (button.textContent === "/" || button.textContent === "*" || button.textContent === "+" || button.textContent === "-") {
@@ -82,7 +91,7 @@ buttonsOnScreen.forEach((button) => {
                         }
                     }
                 }
-            } else {
+            } else if (button.textContent !== 'BACK') {
                 if (a !== "" && operator !== "") {
                     if (checkFloat(button) === true){
 
@@ -137,12 +146,15 @@ buttonsOnScreen.forEach((button) => {
             }
         }
 
-        // if (display.textContent.includes('.', '.') && display.textContent.slice(-1) !== '.') {
-        //     console.log('yes')
-        //     if (display.textContent.slice(-1) === '.') {
-        //         alert('aaa');
-        //     }
-        // }
+        if (button.textContent === 'BACK') {
+            if (a === "" && b === "") {
+                display.textContent = display.textContent.slice('0', display.textContent.length -1);
+                a = display.textContent;
+            } else {
+                display.textContent = display.textContent.slice('0', display.textContent.length -1);
+                b = display.textContent;
+            }
+        }
     } )
 });
 
